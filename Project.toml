@@ -1,7 +1,7 @@
 name = "PinYin"
 uuid = "5ae934e3-953d-4431-9799-0c65336a42ac"
 authors = ["Likan Zhan <zhanlikan@hotmail.com> and contributors"]
-version = "1.0.0-DEV"
+version = "0.1.0-DEV"
 
 [compat]
 julia = "1"
