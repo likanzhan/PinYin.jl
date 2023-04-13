@@ -2,22 +2,23 @@ module PinYin
 
 export pinyin
 
-# https://github.com/hotoo/pinyin/blob/master/src/data/dict-zi.ts
-const DataFile = joinpath(@__DIR__, "..", "data", "dict-zi.ts")
+# ?
+const DataFile1 = joinpath(@__DIR__, "..", "data", "Mandarin1.dat")
+
+# https://github.com/lxyu/pinyin/blob/master/pinyin/Mandarin.dat
+const DataFile2 = joinpath(@__DIR__, "..", "data", "Mandarin2.dat")
 
 function LoadPinyinData(DataFile)
-    CharacterCode, CharacterPinyin = UInt32[], []
-    for line in readlines(DataFile)
-        if startswith(line, "dict")
-            char, pinyin = match(Regex("^dict\\[(.*)\\].*\"(.*)\""), line).captures
-            push!(CharacterCode, parse(UInt32, char))
-            push!(CharacterPinyin, pinyin)
-        end
-    end
-    return CharacterCode, CharacterPinyin
+	CharacterCode, CharacterPinyin = UInt32[], []
+	for line in readlines(DataFile)
+		char, pinyin = split(line, "\t")
+		push!(CharacterCode, parse(UInt32, "0x" * char))
+		push!(CharacterPinyin, pinyin)
+	end
+	return CharacterCode, CharacterPinyin
 end
 
-global CharacterCode, CharacterPinyin = LoadPinyinData(DataFile)
+global CharacterCode, CharacterPinyin = LoadPinyinData(DataFile2)
 
 """
     pinyin(str::AbstractChar)
